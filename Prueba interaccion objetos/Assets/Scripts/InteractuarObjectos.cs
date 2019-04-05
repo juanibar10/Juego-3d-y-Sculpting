@@ -16,10 +16,21 @@ public class InteractuarObjectos : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerInteractuable))
             {
-                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-                hit.transform.gameObject.GetComponent<EstadoCubo>().abierto = !hit.transform.gameObject.GetComponent<EstadoCubo>().abierto;
-                hit.transform.gameObject.GetComponent<EstadoCubo>().ActivarAnimacion(hit.transform.gameObject.GetComponent<EstadoCubo>().abierto);
-                Debug.Log("Did Hit");
+
+                if(hit.transform.tag == "Boton")
+                {
+                    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+                    hit.transform.gameObject.GetComponent<BotonAFalse>().pulsado = true;
+
+                }
+                else
+                {
+                    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+                    hit.transform.gameObject.GetComponent<EstadoCubo>().abierto = !hit.transform.gameObject.GetComponent<EstadoCubo>().abierto;
+                    hit.transform.gameObject.GetComponent<EstadoCubo>().ActivarAnimacion(hit.transform.gameObject.GetComponent<EstadoCubo>().abierto);
+                    Debug.Log("Did Hit");
+                }
+                
             }
             else
             {

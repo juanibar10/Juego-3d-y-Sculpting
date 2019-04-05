@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Fire
   - PlayerPos
+  - Boton
+  - Boton1
   layers:
   - Default
   - TransparentFX
