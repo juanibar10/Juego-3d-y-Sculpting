@@ -6,6 +6,8 @@ public class PuertaAscensor : MonoBehaviour
 {
     public bool abierto = false;
     Animator anim;
+    
+    
 
     private void Awake()
     {
@@ -23,8 +25,15 @@ public class PuertaAscensor : MonoBehaviour
         else
         {
             anim.SetBool("Estado", estado);
-            anim.Play("Cubo_vuelve");
-            anim.Play("IdleCubo");
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            ActivarAnimacion(false);
+        }
+        
     }
 }

@@ -17,7 +17,7 @@ public class InteractuarObjectos : MonoBehaviour
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerInteractuable))
             {
 
-                if(hit.transform.tag == "Boton")
+                if(hit.transform.tag == "Boton" || hit.transform.tag == "BotonAscensor")
                 {
                     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
                     hit.transform.gameObject.GetComponent<BotonAFalse>().pulsado = true;
