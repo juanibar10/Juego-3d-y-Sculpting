@@ -19,6 +19,10 @@ public class InteractuarObjectos : MonoBehaviour
 
                 if(hit.transform.tag == "Boton" || hit.transform.tag == "BotonAscensor")
                 {
+                    if(hit.transform.tag == "Boton")
+                    {
+                        GameObject.FindGameObjectWithTag("Cabina").GetComponent<CabinaAscensor>().CambiandoFalse();
+                    }
                     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
                     hit.transform.gameObject.GetComponent<BotonAFalse>().pulsado = true;
 

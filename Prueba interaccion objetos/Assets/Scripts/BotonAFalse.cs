@@ -15,8 +15,13 @@ public class BotonAFalse : MonoBehaviour
     {
         anim.SetBool("BotonPulsado", pulsado);
 
-        
-        
+
+
+        if (pulsado && gameObject.tag == "BotonAscensor")
+        {
+            cabina.GetComponent<CabinaAscensor>().ActivarAnimacion(!cabina.GetComponent<CabinaAscensor>().Estado);
+        }
+
         if (pulsado && gameObject.tag == "Boton" && ubicacion == "Abajo" && !cabina.GetComponent<CabinaAscensor>().Estado && !cambiando)
         {
             cambiando = true;
@@ -43,10 +48,5 @@ public class BotonAFalse : MonoBehaviour
             return;
         }
     
-        if (pulsado && gameObject.tag == "BotonAscensor")
-        {
-            puerta.GetComponent<PuertaAscensor>().ActivarAnimacion(false);
-            cabina.GetComponent<CabinaAscensor>().ActivarAnimacion(!cabina.GetComponent<CabinaAscensor>().Estado);
-        }
     }
 }

@@ -23,8 +23,6 @@ public class EstadoCubo : MonoBehaviour
         else
         {
             anim.SetBool("Estado", estado);
-            anim.Play("Cubo_vuelve");
-            anim.Play("IdleCubo");
         }
     }
 }

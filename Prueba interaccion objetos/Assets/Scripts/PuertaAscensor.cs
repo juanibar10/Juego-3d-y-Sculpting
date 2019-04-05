@@ -30,10 +30,10 @@ public class PuertaAscensor : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             ActivarAnimacion(false);
         }
-        
     }
+    
 }
