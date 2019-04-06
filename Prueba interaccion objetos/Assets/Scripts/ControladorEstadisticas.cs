@@ -51,11 +51,7 @@ public class ControladorEstadisticas : MonoBehaviour
             if (estamina >= 100)
                 return;
             else
-            {
                 estamina += restarEstamina * Time.deltaTime / 3;
-                comida -= restarComida * Time.deltaTime * 2;
-            }
-                
         }
         else
         {
