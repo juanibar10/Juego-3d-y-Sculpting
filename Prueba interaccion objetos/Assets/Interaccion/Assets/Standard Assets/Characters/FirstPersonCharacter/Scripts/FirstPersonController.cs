@@ -19,7 +19,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_JumpSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
-        [SerializeField] public MouseLook m_MouseLook;
+                         public MouseLook m_MouseLook;
         [SerializeField] private bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
         [SerializeField] private bool m_UseHeadBob;
@@ -29,8 +29,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
-
-        private Camera m_Camera;
+        [HideInInspector]
+        public Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
         private Vector2 m_Input;
@@ -38,12 +38,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private CharacterController m_CharacterController;
         private CollisionFlags m_CollisionFlags;
         private bool m_PreviouslyGrounded;
-        private Vector3 m_OriginalCameraPosition;
+        [HideInInspector]
+        public Vector3 m_OriginalCameraPosition;
         private float m_StepCycle;
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        private ZeroGravityMovement zgm;
+        private bool segundaVez = false;
 
+        private CapsuleCollider capsuleCollider;
+        private ZeroGravityMovement zeroGravityMovement;
+
+        [HideInInspector]
+        public Quaternion rotacion;
+
+        
         // Use this for initialization
         private void Start()
         {
@@ -56,10 +66,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
-			m_MouseLook.Init(transform , m_Camera.transform);
+            m_MouseLook.Init(transform, m_Camera.transform);
         }
 
-
+        public void IgualarRotacion(Quaternion camara, Quaternion player)
+        {
+            Camera.main.transform.rotation = camara;
+            transform.rotation = player;
+        }
         // Update is called once per frame
         private void Update()
         {
@@ -219,7 +233,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
 
-            if (gameObject.GetComponent<ControladorEstadisticas>().estamina <= 0)
+            if (gameObject.transform.GetComponentInParent<ControladorEstadisticas>().estamina <= 0)
                 speed = m_WalkSpeed;
             m_Input = new Vector2(horizontal, vertical);
 
@@ -250,7 +264,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            m_MouseLook.LookRotation (transform, m_Camera.transform);
+            m_MouseLook.LookRotation (transform);
         }
 
 

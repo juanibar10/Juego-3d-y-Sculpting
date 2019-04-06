@@ -10,6 +10,7 @@ TagManager:
   - Boton1
   - BotonAscensor
   - Cabina
+  - Activador
   layers:
   - Default
   - TransparentFX

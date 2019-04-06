@@ -9,7 +9,8 @@ public class ControladorEstadisticas : MonoBehaviour
     public float restarAgua;
     public float restarComida;
     public float restarEstamina;
-    
+
+    public GameObject playerNormal;
 
     [Range(0,100)]
     public float agua = 100;
@@ -37,30 +38,33 @@ public class ControladorEstadisticas : MonoBehaviour
         if (comida >= 0)
             comida -= restarComida * Time.deltaTime;
 
-        if (gameObject.GetComponent<FirstPersonController>().isRunning && estamina >= 0 && !gameObject.GetComponent<FirstPersonController>().isIdle )
-            estamina -= restarEstamina * Time.deltaTime;
-        else if(gameObject.GetComponent<FirstPersonController>().isIdle)
-        {
-            if (estamina >= 100)
-                return;
-            else
-                estamina += restarEstamina * Time.deltaTime / 1.5f;
-        }
-        else if(gameObject.GetComponent<FirstPersonController>().m_IsWalking)
-        {
-            if (estamina >= 100)
-                return;
+        
+            if (gameObject.GetComponent<FirstPersonController>().isRunning && estamina >= 0 && !gameObject.GetComponent<FirstPersonController>().isIdle)
+                estamina -= restarEstamina * Time.deltaTime;
+            else if (gameObject.GetComponent<FirstPersonController>().isIdle)
+            {
+                if (estamina >= 100)
+                    return;
+                else
+                    estamina += restarEstamina * Time.deltaTime / 1.5f;
+            }
+            else if (gameObject.GetComponent<FirstPersonController>().m_IsWalking)
+            {
+                if (estamina >= 100)
+                    return;
+                else
+                {
+                    estamina += restarEstamina * Time.deltaTime / 3;
+                    comida -= restarComida * Time.deltaTime * 2;
+                }
+
+            }
             else
             {
-                estamina += restarEstamina * Time.deltaTime / 3;
-                comida -= restarComida * Time.deltaTime * 2;
+                estamina = 0;
             }
-                
-        }
-        else
-        {
-            estamina = 0;
-        }
+        
+        
         
 
 

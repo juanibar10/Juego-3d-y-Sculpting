@@ -5,7 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 namespace UnityStandardAssets.Characters.FirstPerson
 {
     [Serializable]
-    public class MouseLook
+    public class MouseLook : MonoBehaviour
     {
         public float XSensitivity = 2f;
         public float YSensitivity = 2f;
@@ -15,10 +15,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public bool smooth;
         public float smoothTime = 5f;
         public bool lockCursor = true;
+        [SerializeField]
+        public Transform camera;
 
-
-        private Quaternion m_CharacterTargetRot;
-        private Quaternion m_CameraTargetRot;
+        [HideInInspector]
+        public Quaternion m_CharacterTargetRot;
+        [HideInInspector]
+        public Quaternion m_CameraTargetRot;
         private bool m_cursorIsLocked = true;
 
         public void Init(Transform character, Transform camera)
@@ -28,7 +31,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        public void LookRotation(Transform character, Transform camera)
+        public void LookRotation(Transform character)
         {
             float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
             float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
