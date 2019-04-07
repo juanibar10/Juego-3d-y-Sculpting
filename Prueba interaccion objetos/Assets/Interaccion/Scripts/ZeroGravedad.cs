@@ -81,9 +81,9 @@ public class ZeroGravedad : MonoBehaviour
     }
     
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if(other.tag =="Activador")
+        if(other.tag == "Activador")
             zeroGravedad = !zeroGravedad;
     }
 
