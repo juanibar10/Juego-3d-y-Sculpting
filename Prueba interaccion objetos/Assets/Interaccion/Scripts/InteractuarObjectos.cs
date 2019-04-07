@@ -14,17 +14,15 @@ public class InteractuarObjectos : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerInteractuable))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 5, layerInteractuable))
             {
 
                 if(hit.transform.tag == "Boton" || hit.transform.tag == "BotonAscensor")
                 {
-                    if(hit.transform.tag == "Boton")
-                    {
-                        GameObject.FindGameObjectWithTag("Cabina").GetComponent<CabinaAscensor>().CambiandoFalse();
-                    }
+                    
                     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-                    hit.transform.gameObject.GetComponent<BotonAFalse>().pulsado = true;
+                    if (!hit.transform.gameObject.GetComponent<BotonAFalse>().cambiando)
+                        hit.transform.gameObject.GetComponent<BotonAFalse>().pulsado = true;
 
                 }
                 else
@@ -45,7 +43,7 @@ public class InteractuarObjectos : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
 
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerRecogible))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 5, layerRecogible))
             {
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
                 hit.transform.gameObject.GetComponent<Pickup>().AddObjeto();

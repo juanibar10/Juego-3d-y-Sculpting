@@ -13,6 +13,7 @@ public class CabinaAscensor : MonoBehaviour
 
     public GameObject boton1;
     public GameObject boton2;
+    public GameObject boton3;
 
 
     private void Awake()
@@ -24,25 +25,20 @@ public class CabinaAscensor : MonoBehaviour
 
     public void ActivarAnimacion(bool estado)
     {
+        anim.SetBool("Estado", estado);
         Estado = estado;
-        if (estado)
-        {
-            anim.SetBool("Estado", estado);
-        }
-        else
-        {
-            anim.SetBool("Estado", estado);
-        }
     }
 
 
     public void AbrirPuertaArriba()
     {
         puertaArriba.GetComponent<PuertaAscensor>().ActivarAnimacion(true);
+        boton1.GetComponent<BotonAFalse>().corrigiendoUbicacion = false;
     }
     public void AbrirPuertaAbajo()
     {
         puertaAbajo.GetComponent<PuertaAscensor>().ActivarAnimacion(true);
+        boton2.GetComponent<BotonAFalse>().corrigiendoUbicacion = false;
     }
 
     public void CerrarPuertaArriba()
@@ -58,6 +54,7 @@ public class CabinaAscensor : MonoBehaviour
     {
         boton1.GetComponent<BotonAFalse>().cambiando = false;
         boton2.GetComponent<BotonAFalse>().cambiando = false;
+        boton3.GetComponent<BotonAFalse>().cambiando = false;
     }
 
 }

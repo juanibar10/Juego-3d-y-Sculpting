@@ -8,9 +8,11 @@ public class ControladorEstadisticas : MonoBehaviour
 {
     public float restarAgua;
     public float restarComida;
+    public float restarComidaEstamina;
     public float restarEstamina;
 
-    public GameObject playerNormal;
+
+    
 
     [Range(0,100)]
     public float agua = 100;
@@ -19,6 +21,8 @@ public class ControladorEstadisticas : MonoBehaviour
     [Range(0, 100)]
     public float estamina = 100;
     private float vida = 100;
+
+    private bool restaurandoEstamina = false;
 
     public Slider[] sliders;
 
@@ -35,27 +39,44 @@ public class ControladorEstadisticas : MonoBehaviour
         if (agua >= 0)
             agua -= restarAgua * Time.deltaTime;
 
-        if (comida >= 0)
+        if (comida >= 0 && !restaurandoEstamina)
+        {
+            Debug.Log("Resta normal");
             comida -= restarComida * Time.deltaTime;
+        }
+        else if(comida >= 0 && restaurandoEstamina)
+        {
+            Debug.Log("Resta incrementada");
+            comida -= restarComidaEstamina * Time.deltaTime;
+        }
 
-        
-            if (gameObject.GetComponent<FirstPersonController>().isRunning && estamina >= 0 && !gameObject.GetComponent<FirstPersonController>().isIdle)
+
+        if (gameObject.GetComponent<FirstPersonController>().isRunning && estamina >= 0 && !gameObject.GetComponent<FirstPersonController>().isIdle)
                 estamina -= restarEstamina * Time.deltaTime;
             else if (gameObject.GetComponent<FirstPersonController>().isIdle)
             {
                 if (estamina >= 100)
+                {
+                    restaurandoEstamina = false;
                     return;
+                }
                 else
+                {
                     estamina += restarEstamina * Time.deltaTime / 1.5f;
+                    restaurandoEstamina = true;
+                }
             }
             else if (gameObject.GetComponent<FirstPersonController>().m_IsWalking)
             {
                 if (estamina >= 100)
+                {
+                    restaurandoEstamina = false;
                     return;
+                }
                 else
                 {
                     estamina += restarEstamina * Time.deltaTime / 3;
-                    comida -= restarComida * Time.deltaTime * 2;
+                    restaurandoEstamina = true;
                 }
 
             }

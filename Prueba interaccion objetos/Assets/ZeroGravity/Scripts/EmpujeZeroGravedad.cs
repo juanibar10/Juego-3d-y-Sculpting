@@ -9,16 +9,12 @@ public class EmpujeZeroGravedad : MonoBehaviour
     // Whether or not to add force at position which introduces torque
     public bool addForceAtPosition = false;
 
-    private bool thrusterIsActive = false;
+    private bool thrusterIsActive = true;
     private Transform objectTransform;
     private Rigidbody objectParentRigidbody;
     private Vector3 _velocity = Vector3.zero;
 
-    private void Awake()
-    {
-        //objectParentRigidbody = GetComponent<Rigidbody>();
-        //objectTransform = GetComponent<Transform>();
-    }
+   
 
     void FixedUpdate()
     {
@@ -27,7 +23,7 @@ public class EmpujeZeroGravedad : MonoBehaviour
         {
             if (addForceAtPosition)
             {
-                objectParentRigidbody.AddForceAtPosition(objectTransform.up * thrusterForce/100, objectTransform.position);
+                objectParentRigidbody.AddForceAtPosition(objectTransform.up * thrusterForce, objectTransform.position);
             }
             else
             {

@@ -4,7 +4,6 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
-    [Serializable]
     public class MouseLook : MonoBehaviour
     {
         public float XSensitivity = 2f;

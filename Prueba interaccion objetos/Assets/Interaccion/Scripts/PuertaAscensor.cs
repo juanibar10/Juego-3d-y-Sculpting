@@ -18,14 +18,8 @@ public class PuertaAscensor : MonoBehaviour
 
     public void ActivarAnimacion(bool estado)
     {
-        if (estado)
-        {
-            anim.SetBool("Estado", estado);
-        }
-        else
-        {
-            anim.SetBool("Estado", estado);
-        }
+        anim.SetBool("Estado", estado);
+        abierto = estado;
     }
 
     private void OnTriggerExit(Collider other)

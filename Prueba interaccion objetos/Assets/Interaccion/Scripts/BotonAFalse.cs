@@ -8,45 +8,73 @@ public class BotonAFalse : MonoBehaviour
     public GameObject puerta;
     public GameObject cabina;
     public bool pulsado = false;
-    public string ubicacion;
+    public bool ubicacion;
+    public bool diferente;
     public bool cambiando;
-    
+    [HideInInspector]
+    public bool corrigiendoUbicacion;
+
     public void Update()
     {
-        anim.SetBool("BotonPulsado", pulsado);
+        if (!puerta.GetComponent<PuertaAscensor>().abierto && gameObject.tag == "Boton")
+            cambiando = false;
+        
+        if (!pulsado)
+            anim.SetBool("BotonPulsado", pulsado);
+
+        
+
+        if (ubicacion && cabina.GetComponent<CabinaAscensor>().Estado  && !cambiando)
+            diferente = false;
+        else if (ubicacion && !cabina.GetComponent<CabinaAscensor>().Estado && !cambiando)
+            diferente = true;
+
+        if (!ubicacion && cabina.GetComponent<CabinaAscensor>().Estado && !cambiando)
+            diferente = true;
+        else if (!ubicacion && !cabina.GetComponent<CabinaAscensor>().Estado && !cambiando)
+            diferente = false;
 
 
 
-        if (pulsado && gameObject.tag == "BotonAscensor")
-        {
-            cabina.GetComponent<CabinaAscensor>().ActivarAnimacion(!cabina.GetComponent<CabinaAscensor>().Estado);
-        }
 
-        if (pulsado && gameObject.tag == "Boton" && ubicacion == "Abajo" && !cabina.GetComponent<CabinaAscensor>().Estado && !cambiando)
+        if (pulsado && gameObject.tag == "Boton" && ubicacion && diferente)
         {
-            cambiando = true;
-            Debug.Log("entra");
-            puerta.GetComponent<PuertaAscensor>().ActivarAnimacion(true);
-            return;
-        }
-        else if(pulsado && gameObject.tag == "Boton" && ubicacion == "Arriba" && cabina.GetComponent<CabinaAscensor>().anim.GetBool("Estado") && !cambiando)
-        {
-            cambiando = true;
-            puerta.GetComponent<PuertaAscensor>().ActivarAnimacion(true);
-            return;
-        }
-        else if (pulsado && ubicacion == "Arriba" && !cabina.GetComponent<CabinaAscensor>().Estado && !cambiando)
-        {
+            anim.SetBool("BotonPulsado", pulsado);
             cambiando = true;
             cabina.GetComponent<CabinaAscensor>().ActivarAnimacion(true);
+            corrigiendoUbicacion = true;
             return;
         }
-        else if (pulsado && ubicacion == "Abajo" && cabina.GetComponent<CabinaAscensor>().Estado && !cambiando)
+        else if (pulsado && gameObject.tag == "Boton" && !ubicacion && diferente)
         {
+            anim.SetBool("BotonPulsado", pulsado);
             cambiando = true;
             cabina.GetComponent<CabinaAscensor>().ActivarAnimacion(false);
+            corrigiendoUbicacion = true;
             return;
         }
-    
+        else if (pulsado && gameObject.tag == "Boton" && !ubicacion && !diferente && !corrigiendoUbicacion)
+        {
+            anim.SetBool("BotonPulsado", pulsado);
+            cambiando = true;
+            puerta.GetComponent<PuertaAscensor>().ActivarAnimacion(true);
+            return;
+        }
+        else if (pulsado && gameObject.tag == "Boton" && ubicacion && !diferente && !corrigiendoUbicacion)
+        {
+            anim.SetBool("BotonPulsado", pulsado);
+            cambiando = true;
+            puerta.GetComponent<PuertaAscensor>().ActivarAnimacion(true);
+            return;
+        }
+
+        if (pulsado && gameObject.tag == "BotonAscensor" && !cambiando)
+        {
+            anim.SetBool("BotonPulsado", pulsado);
+            cambiando = true;
+            cabina.GetComponent<CabinaAscensor>().ActivarAnimacion(!cabina.GetComponent<CabinaAscensor>().Estado);
+            return;
+        }
+
     }
 }

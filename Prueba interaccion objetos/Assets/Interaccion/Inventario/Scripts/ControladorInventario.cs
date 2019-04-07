@@ -7,8 +7,10 @@ public class ControladorInventario : MonoBehaviour
 {
     public GameObject inventario;
     public GameObject notas;
-    private bool abierto = false;
-    private bool abiertoNotas = false;
+    [HideInInspector]
+    public bool abierto = false;
+    [HideInInspector]
+    public bool abiertoNotas = false;
 
    
 
@@ -18,6 +20,8 @@ public class ControladorInventario : MonoBehaviour
         {
             abierto = !abierto;
             GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = !abierto;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ZeroGravityMovement>().enabled = !abierto;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook>().enabled = !abierto;
         }
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(!abierto);
@@ -27,6 +31,8 @@ public class ControladorInventario : MonoBehaviour
         {
             abiertoNotas = !abiertoNotas;
             GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = !abiertoNotas;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ZeroGravityMovement>().enabled = !abiertoNotas;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook>().enabled = !abiertoNotas;
         }
         GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(!abiertoNotas);
         notas.SetActive(abiertoNotas);
@@ -36,14 +42,18 @@ public class ControladorInventario : MonoBehaviour
     {
         abierto = !abierto;
         GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ZeroGravityMovement>().enabled = !abierto;
         GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = !abierto;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook>().enabled = !abierto;
     }
 
     public void CerrarNotas()
     {
         abiertoNotas = !abiertoNotas;
         GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ZeroGravityMovement>().enabled = !abiertoNotas;
         GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = !abiertoNotas;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook>().enabled = !abiertoNotas;
     }
 
     public void botonNotas()

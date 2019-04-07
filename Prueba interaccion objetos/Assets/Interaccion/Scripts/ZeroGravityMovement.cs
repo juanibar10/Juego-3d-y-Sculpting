@@ -13,7 +13,6 @@ public class ZeroGravityMovement : MonoBehaviour
     private Vector3 posicion;
     private Rigidbody rb;
     public float velocidad;
-    public float turnSpeed = 0.15f;
 
     public FirstPersonController fpc;
     private CharacterController characterController;
